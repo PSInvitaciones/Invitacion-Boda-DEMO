@@ -1,0 +1,19 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35208.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{16B6579A-6089-446F-A796-5218ABB91E97}"
+	ProjectSection(SolutionItems) = preProject
+		Invitación para Boda DEMO.HTML = Invitación para Boda DEMO.HTML
+		styles.css = styles.css
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {793E3AA2-97F3-47B0-9F62-30582E8E35C6}
+	EndGlobalSection
+EndGlobal
