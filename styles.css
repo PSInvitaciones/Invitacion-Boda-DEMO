@@ -1,8 +1,13 @@
-﻿/* Reset de márgenes y paddings para uniformidad */
+/* Reset de márgenes y paddings para uniformidad */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Desplazamiento suave */
+html {
+    scroll-behavior: smooth;
 }
 
 /* Estilos generales para el cuerpo de la página */
@@ -44,38 +49,39 @@ h2 {
 
 /* Sección de fotos */
 #seccion-fotos {
-    margin: 20px;
     padding: 20px;
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
 }
 
-.photo-grid {
+/* Álbum de fotos con scroll horizontal */
+.photo-album {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    overflow-x: auto; /* Habilitar scroll manual */
     gap: 10px;
+    padding: 10px;
+    position: relative;
+    scroll-behavior: smooth; /* Desplazamiento suave */
+    cursor: grab; /* Indicar que es desplazable */
 }
 
-.photo-grid img {
-    width: calc(50% - 20px);
-    max-width: 300px;
-    border-radius: 10px;
+.photo-album::-webkit-scrollbar {
+    display: none; /* Ocultar scrollbar en Chrome */
+}
+
+.photo-album img {
+    width: 250px;
+    height: 200px;
     object-fit: cover;
-    transition: transform 0.3s ease-in-out;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
 }
 
-.photo-grid img:hover {
-    transform: scale(1.05);
+.photo-album img:hover {
+    transform: scale(1.1); /* Efecto de flotación */
 }
 
-/* Fotos de la ceremonia */
-.venue-photos {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-}
+
 
 .venue-photos img {
     width: 48%;
@@ -84,66 +90,29 @@ h2 {
     border-radius: 10px;
 }
 
-/* Formulario que llene el ancho completo */
-#formulario {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    margin: 0;
-}
-
-#formulario h2 {
+/* Botón de Confirmar Asistencia */
+#confirmar-asistencia {
+    padding: 40px 0;
     text-align: center;
 }
 
-#formulario label {
-    font-weight: bold;
-    display: block;
-    text-align: center;
-    
-}
-
-/* Inputs y select al 100% */
-#formulario input, 
-#formulario select {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #000;
-    font-size: 1em;
-    display: block;
-    font-color: black;
-}
-
-#formulario input:focus, 
-#formulario select:focus {
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-/* Botón de envío */
-#formulario button {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 5px;
+#whatsapp-btn {
+    display: inline-block;
+    padding: 15px 30px;
     background-color: #495057;
     color: #fff;
-    font-size: 1em;
+    border-radius: 5px;
+    font-size: 1.2em;
+    text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-#formulario button:hover {
+#whatsapp-btn:hover {
     background-color: #343a40;
 }
 
-#formulario button:active {
+#whatsapp-btn:active {
     background-color: #007bff;
 }
 
@@ -151,7 +120,6 @@ h2 {
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #f1f1f1;
     color: #333;
     font-size: 0.9em;
     border-top: 1px solid #ccc;
@@ -164,8 +132,8 @@ footer {
         font-size: 3em;
     }
 
-    .photo-grid img {
-        width: calc(100% - 10px);
+    .photo-album img {
+        width: 100%;
     }
 
     .venue-photos {
@@ -176,4 +144,125 @@ footer {
         width: 100%;
         margin-bottom: 10px;
     }
+}
+
+/* Modal para maximizar las imágenes */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 80%;
+    height: auto;
+    margin-top: 5%;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+}
+
+#caption {
+    text-align: center;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1.2em;
+}
+/* Estilo para la sección de mensaje */
+#mensaje-invitado {
+    padding: 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 10px auto; /* Centrar la sección */
+}
+
+/* Estilo del mensaje */
+.mensaje {
+    font-style: normal; /* Letra formal y no cursiva */
+    font-family: 'Playfair Display', serif;
+    font-size: 1em;
+    color: #495057;
+    line-height: 1.4;
+}
+
+/* Nombre de los novios en cursiva */
+.nombre-novios {
+    font-style: italic; /* Aplicar cursiva solo a los nombres */
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.2em;
+    color: #333;
+}
+/* Nueva sección de mensaje de los novios para la ceremonia */
+#mensaje-ceremonia {
+    padding: 15px;
+    text-align: center;
+    background-color: #f3f4f7;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 20px auto; /* Centrar la sección */
+}
+
+/* Mensaje formal para la ceremonia */
+#mensaje-ceremonia .mensaje {
+    font-style: normal; /* Letra formal y no cursiva */
+    font-family: 'Playfair Display', serif;
+    font-size: 1em;
+    color: #495057;
+    line-height: 1.5;
+}
+
+/* Nombre de los novios en cursiva */
+#mensaje-ceremonia .nombre-novios {
+    font-style: italic; /* Aplicar cursiva solo a los nombres */
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.2em;
+    color: #333;
+}
+/* Ajustes para las fotos de la ceremonia */
+.venue-photos {
+    display: flex;
+    justify-content: space-around; /* Espacio uniforme entre las imágenes */
+    align-items: center;
+    margin-top: 10px;
+}
+
+.venue-item {
+    width: 45%; /* Ajuste del ancho de cada imagen */
+    text-align: center; /* Centrar la dirección */
+}
+
+.venue-item img {
+    width: 100%; /* Ajuste de la imagen para ocupar todo el contenedor */
+    border-radius: 10px;
+}
+
+.venue-address {
+    font-family: 'Playfair Display', serif;
+    font-size: 1em;
+    color: #495057;
+    margin-top: 10px; /* Separación entre la imagen y el texto */
+}
+
 }
