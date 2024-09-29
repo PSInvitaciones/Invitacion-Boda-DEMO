@@ -1,23 +1,23 @@
-// SelecciÛn del contenedor de la galerÌa y del modal
+// Selecci√≥n del contenedor de la galer√≠a y del modal
 const photoAlbum = document.querySelector('.photo-album');
 const seccionFotos = document.getElementById('seccion-fotos');
-let isAutoScrolling = true; // Controla si el scroll autom·tico est· activo
-let isModalOpen = false;    // Controla si el modal est· abierto
-let autoScrollInterval;     // Intervalo del scroll autom·tico
+let isAutoScrolling = true; // Controla si el scroll autom√°tico est√° activo
+let isModalOpen = false;    // Controla si el modal est√° abierto
+let autoScrollInterval;     // Intervalo del scroll autom√°tico
 
-// Modal para maximizar im·genes
+// Modal para maximizar im√°genes
 const modal = document.getElementById("modal");
 const modalImg = document.getElementById("imgModal");
 const captionText = document.getElementById("caption");
 const closeModal = document.querySelector(".close");
 
-// Cuadruplicar las im·genes para crear un desplazamiento m·s largo
+// Cuadruplicar las im√°genes para crear un desplazamiento m√°s largo
 photoAlbum.innerHTML += photoAlbum.innerHTML + photoAlbum.innerHTML + photoAlbum.innerHTML;
 
-// Iniciar el scroll autom·tico
+// Iniciar el scroll autom√°tico
 function startAutoScroll() {
     autoScrollInterval = setInterval(() => {
-        photoAlbum.scrollLeft += 1; // Velocidad del scroll autom·tico
+        photoAlbum.scrollLeft += 1; // Velocidad del scroll autom√°tico
 
         // Reiniciar el scroll al llegar a la mitad del contenedor cuadruplicado
         if (photoAlbum.scrollLeft >= photoAlbum.scrollWidth / 4) {
@@ -26,15 +26,15 @@ function startAutoScroll() {
     }, 30);
 }
 
-// Pausar el scroll autom·tico
+// Pausar el scroll autom√°tico
 function stopAutoScroll() {
     clearInterval(autoScrollInterval);
 }
 
-// Iniciar scroll autom·tico al cargar la p·gina
+// Iniciar scroll autom√°tico al cargar la p√°gina
 window.addEventListener('load', startAutoScroll);
 
-// Detener el desplazamiento autom·tico cuando el mouse est· sobre la secciÛn de fotos
+// Detener el desplazamiento autom√°tico cuando el mouse est√° sobre la secci√≥n de fotos
 seccionFotos.addEventListener('mouseenter', () => {
     if (!isModalOpen) {
         stopAutoScroll();
@@ -42,7 +42,7 @@ seccionFotos.addEventListener('mouseenter', () => {
     }
 });
 
-// Reanudar el desplazamiento autom·tico cuando el mouse salga de la secciÛn de fotos
+// Reanudar el desplazamiento autom√°tico cuando el mouse salga de la secci√≥n de fotos
 seccionFotos.addEventListener('mouseleave', () => {
     if (!isAutoScrolling && !isModalOpen) {
         startAutoScroll();
@@ -58,17 +58,17 @@ images.forEach(image => {
         modal.style.display = "block";
         modalImg.src = this.src;
         captionText.innerHTML = this.alt;
-        stopAutoScroll(); // Pausar el scroll autom·tico cuando el modal estÈ abierto
-        isModalOpen = true; // Marcar que el modal est· abierto
+        stopAutoScroll(); // Pausar el scroll autom√°tico cuando el modal est√© abierto
+        isModalOpen = true; // Marcar que el modal est√° abierto
     });
 });
 
-// Cerrar el modal y reanudar el scroll autom·tico solo si el mouse no est· sobre la secciÛn de fotos
+// Cerrar el modal y reanudar el scroll autom√°tico solo si el mouse no est√° sobre la secci√≥n de fotos
 closeModal.addEventListener("click", function() {
     modal.style.display = "none";
     isModalOpen = false; // Marcar que el modal se ha cerrado
     if (!seccionFotos.matches(':hover')) {
-        startAutoScroll(); // Reanudar el scroll si el mouse no est· sobre la secciÛn
+        startAutoScroll(); // Reanudar el scroll si el mouse no est√° sobre la secci√≥n
         isAutoScrolling = true;
     }
 });
