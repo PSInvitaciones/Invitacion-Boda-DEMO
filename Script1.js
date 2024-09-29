@@ -18,7 +18,6 @@ photoAlbum.innerHTML += photoAlbum.innerHTML + photoAlbum.innerHTML + photoAlbum
 function startAutoScroll() {
     autoScrollInterval = setInterval(() => {
         photoAlbum.scrollLeft += 1; // Velocidad del scroll automático
-
         // Reiniciar el scroll al llegar a la mitad del contenedor cuadruplicado
         if (photoAlbum.scrollLeft >= photoAlbum.scrollWidth / 4) {
             photoAlbum.scrollLeft = 0;
@@ -71,4 +70,20 @@ closeModal.addEventListener("click", function() {
         startAutoScroll(); // Reanudar el scroll si el mouse no está sobre la sección
         isAutoScrolling = true;
     }
+});
+
+// Efecto de confetti y mensaje en la confirmación de asistencia
+const whatsappBtn = document.getElementById('whatsapp-btn');
+whatsappBtn.addEventListener('click', function(event) {
+    event.preventDefault(); // Evita que abra el enlace de inmediato
+    whatsappBtn.textContent = '¡Hay Bodón!'; // Cambia el texto del botón
+    confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#bb0000', '#ffffff', '#0000ff'] // Colores personalizados
+    });
+    setTimeout(function() {
+        window.open(whatsappBtn.href, '_blank'); // Abre el enlace después del confetti
+    }, 1500);
 });
