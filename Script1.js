@@ -77,13 +77,29 @@ const whatsappBtn = document.getElementById('whatsapp-btn');
 whatsappBtn.addEventListener('click', function(event) {
     event.preventDefault(); // Evita que abra el enlace de inmediato
     whatsappBtn.textContent = '¡Hay Bodón!'; // Cambia el texto del botón
-    confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#bb0000', '#ffffff', '#0000ff'] // Colores personalizados
-    });
+
+    // Configurar el confetti para que aparezca desde los lados hacia el centro
+    function launchSideConfetti() {
+        confetti({
+            particleCount: 100,
+            angle: 60, // Confetti desde la izquierda
+            spread: 55,
+            origin: { x: 0, y: 0.5 }, // Lado izquierdo
+            colors: ['#bb0000', '#ffffff', '#0000ff'] // Colores personalizados
+        });
+
+        confetti({
+            particleCount: 100,
+            angle: 120, // Confetti desde la derecha
+            spread: 55,
+            origin: { x: 1, y: 0.5 }, // Lado derecho
+            colors: ['#bb0000', '#ffffff', '#0000ff'] // Colores personalizados
+        });
+    }
+
+    // Lanzar confetti desde los lados durante 1.5 segundos
+    launchSideConfetti();
     setTimeout(function() {
-        window.open(whatsappBtn.href, '_blank'); // Abre el enlace después del confetti
+        window.open(whatsappBtn.href, '_blank'); // Abre el enlace después del efecto
     }, 1500);
 });
