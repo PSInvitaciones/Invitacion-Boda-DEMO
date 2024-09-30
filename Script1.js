@@ -93,7 +93,7 @@ whatsappBtn.addEventListener('click', function(event) {
             angle: 120, // Confetti desde la derecha
             spread: 55,
             origin: { x: 1, y: 0.5 }, // Lado derecho
-            colors: ['#bb0000', '#ffffff', '#0000ff'] // Colores personalizados
+            colors: ['#ff718d', '#29cdff', '78ff44'] // Colores personalizados
         });
     }
 
