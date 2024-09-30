@@ -16,8 +16,9 @@ photoAlbum.innerHTML += photoAlbum.innerHTML + photoAlbum.innerHTML + photoAlbum
 
 // Iniciar el scroll automático
 function startAutoScroll() {
+    let scrollSpeed = window.innerWidth < 768 ? 0.5 : 1; // Velocidad más lenta en móviles
     autoScrollInterval = setInterval(() => {
-        photoAlbum.scrollLeft += 1; // Velocidad del scroll automático
+        photoAlbum.scrollLeft += scrollSpeed; // Velocidad del scroll automático
         // Reiniciar el scroll al llegar a la mitad del contenedor cuadruplicado
         if (photoAlbum.scrollLeft >= photoAlbum.scrollWidth / 4) {
             photoAlbum.scrollLeft = 0;
@@ -99,7 +100,9 @@ whatsappBtn.addEventListener('click', function(event) {
 
     // Lanzar confetti desde los lados durante 1.5 segundos
     launchSideConfetti();
+
+    // Deshabilitar el preventDefault para permitir la apertura de WhatsApp
     setTimeout(function() {
-        window.open(whatsappBtn.href, '_blank'); // Abre el enlace después del efecto
+        location.href = whatsappBtn.href; // Abre el enlace después del efecto
     }, 1500);
 });
