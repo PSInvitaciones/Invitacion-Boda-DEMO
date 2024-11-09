@@ -1,227 +1,501 @@
-// Selección del contenedor de la galería y del modal
-const photoAlbum = document.querySelector('.photo-album');
-const seccionFotos = document.getElementById('seccion-fotos');
-let isAutoScrolling = true; // Controla si el scroll automático está activo
-let isModalOpen = false;    // Controla si el modal está abierto
-let autoScrollInterval;     // Intervalo del scroll automático
-
-// Modal para maximizar imágenes
-const modal = document.getElementById("modal");
-const modalImg = document.getElementById("imgModal");
-const captionText = document.getElementById("caption");
-const closeModal = document.querySelector(".close");
-
-// Cuadruplicar las imágenes para crear un desplazamiento más largo
-photoAlbum.innerHTML += photoAlbum.innerHTML + photoAlbum.innerHTML + photoAlbum.innerHTML;
-
-// Iniciar el scroll automático
-function startAutoScroll() {
-    let scrollSpeed = window.innerWidth < 768 ? 0.5 : 1; // Velocidad más lenta en móviles
-    autoScrollInterval = setInterval(() => {
-        photoAlbum.scrollLeft += scrollSpeed; // Velocidad del scroll automático
-        // Reiniciar el scroll al llegar a la mitad del contenedor cuadruplicado
-        if (photoAlbum.scrollLeft >= photoAlbum.scrollWidth / 4) {
-            photoAlbum.scrollLeft = 0;
-        }
-    }, 30);
+body {
+    background-image: url('https://drive.google.com/uc?export=view&id=1JOwXymr4oRjALLJvLPXV89CTejk4Yi-o');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
 }
 
-// Pausar el scroll automático
-function stopAutoScroll() {
-    clearInterval(autoScrollInterval);
+/* Reset de márgenes y paddings para uniformidad */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-// Iniciar scroll automático al cargar la página
-window.addEventListener('load', startAutoScroll);
+/* Desplazamiento suave */
+html {
+    scroll-behavior: smooth;
+}
 
-// Detener el desplazamiento automático cuando el mouse está sobre la sección de fotos
-seccionFotos.addEventListener('mouseenter', () => {
-    if (!isModalOpen) {
-        stopAutoScroll();
-        isAutoScrolling = false;
+/* Estilos generales para el cuerpo de la página */
+body {
+    font-family: 'Playfair Display', serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    background-image: url('https://img.freepik.com/fotos-premium/hermosas-composiciones-florales-restaurante-ceremonia-boda_73989-22672.jpg');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    color: #fff;
+    padding: 40px 0;
+    border-radius: 10px;
+}
+
+h1 {
+    font-size: 4em;
+    font-family: 'Georgia', serif;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    color: #fff;
+}
+
+/* Títulos de secciones */
+h2 {
+    color: #495057;
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Sección de fotos */
+#seccion-fotos {
+    padding: 20px;
+    background-color: transparent;
+}
+
+/* Álbum de fotos con scroll horizontal */
+.photo-album {
+    display: flex;
+    overflow-x: auto; /* Habilitar scroll manual */
+    gap: 10px;
+    padding: 10px;
+    position: relative;
+    scroll-behavior: smooth; /* Desplazamiento suave */
+    cursor: grab; /* Indicar que es desplazable */
+}
+
+.photo-album::-webkit-scrollbar {
+    display: none; /* Ocultar scrollbar en Chrome */
+}
+
+.photo-album img {
+    width: 250px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.photo-album img:hover {
+    transform: scale(1.1); /* Efecto de flotación */
+}
+
+.venue-photos img {
+    width: 48%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Botón de Confirmar Asistencia */
+#confirmar-asistencia {
+    padding: 40px 0;
+    text-align: center;
+    border-radius: 10px;
+}
+
+#whatsapp-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #495057;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 1.2em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#whatsapp-btn:hover {
+    background-color: #343a40;
+}
+
+#whatsapp-btn:active {
+    background-color: #007bff;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #333;
+    font-size: 0.9em;
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+}
+
+/* Adjust the layout for mobile screens */
+@media screen and (max-width: 768px) {
+    #opciones-alojamiento .venue-photos {
+        flex-direction: column; /* Stack the items vertically */
+        align-items: center; /* Center align items */
+        gap: 20px; /* Space between items */
     }
-});
 
-// Reanudar el desplazamiento automático cuando el mouse salga de la sección de fotos
-seccionFotos.addEventListener('mouseleave', () => {
-    if (!isAutoScrolling && !isModalOpen) {
-        startAutoScroll();
-        isAutoScrolling = true;
-    }
-});
-
-// Funcionalidad del modal para maximizar la imagen seleccionada
-const images = document.querySelectorAll(".photo-album img");
-
-images.forEach(image => {
-    image.addEventListener("click", function() {
-        modal.style.display = "block";
-        modalImg.src = this.src;
-        captionText.innerHTML = this.alt;
-        stopAutoScroll(); // Pausar el scroll automático cuando el modal está abierto
-        isModalOpen = true; // Marcar que el modal está abierto
-    });
-});
-
-// Cerrar el modal y reanudar el scroll automático solo si el mouse no está sobre la sección de fotos
-closeModal.addEventListener("click", function() {
-    modal.style.display = "none";
-    isModalOpen = false; // Marcar que el modal se ha cerrado
-    if (!seccionFotos.matches(':hover')) {
-        startAutoScroll(); // Reanudar el scroll si el mouse no está sobre la sección
-        isAutoScrolling = true;
-    }
-});
-
-// Efecto de confetti y mensaje en la confirmación de asistencia
-const whatsappBtn = document.getElementById('whatsapp-btn');
-whatsappBtn.addEventListener('click', function(event) {
-    event.preventDefault(); // Evita que abra el enlace de inmediato
-    whatsappBtn.textContent = '¡Hay Bodón!'; // Cambia el texto del botón
-
-    // Configurar el confetti para que aparezca desde los lados hacia el centro
-    function launchSideConfetti() {
-        confetti({
-            particleCount: 100,
-            angle: 60, // Confetti desde la izquierda
-            spread: 55,
-            origin: { x: 0, y: 0.5 }, // Lado izquierdo
-            colors: ['#ff718d', '#29cdff', '78ff44'] // Colores personalizados
-        });
-
-        confetti({
-            particleCount: 100,
-            angle: 120, // Confetti desde la derecha
-            spread: 55,
-            origin: { x: 1, y: 0.5 }, // Lado derecho
-            colors: ['#ff718d', '#29cdff', '78ff44'] // Colores personalizados
-        });
+    .venue-item {
+        width: 90%; /* Use most of the screen width */
+        max-width: 400px; /* Limit the maximum width */
+        margin: 0 auto; /* Center it horizontally */
+        padding: 15px; /* Add padding inside */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for better separation */
+        background-color: #f9f9f9; /* Light background for contrast */
     }
 
-    // Lanzar confetti desde los lados durante 1.5 segundos
-    launchSideConfetti();
-
-    setTimeout(function() {
-        location.href = whatsappBtn.href; // Abre el enlace después del efecto
-    }, 1500);
-});
-
-// **Agregar funcionalidad de pop-up y tooltip a las fotos de la ceremonia**
-const venueImages = document.querySelectorAll('.venue-item img');
-
-venueImages.forEach(image => {
-    // Crear y agregar un tooltip para cada imagen
-    const tooltip = document.createElement('span');
-    tooltip.classList.add('tooltip');
-    tooltip.textContent = 'Ir a ubicación';
-    image.parentNode.appendChild(tooltip);
-
-    // Mostrar el mensaje al pasar el mouse
-    image.addEventListener('mouseenter', () => {
-        tooltip.style.display = 'block';
-    });
-
-    // Ocultar el mensaje cuando se aleje el mouse
-    image.addEventListener('mouseleave', () => {
-        tooltip.style.display = 'none';
-    });
-
-    // Mostrar mensaje de confirmación al hacer clic
-    image.addEventListener('click', () => {
-        alert('Esta acción te llevaría a la ubicación del lugar en Google Maps.');
-    });
-});
-
-// **Cuenta regresiva**
-const fechaEvento = new Date("2024-12-31T00:00:00").getTime(); // Cambia la fecha al día del evento
-
-// Actualización del contador cada segundo
-const actualizarCuentaRegresiva = setInterval(() => {
-    const ahora = new Date().getTime();
-    const diferencia = fechaEvento - ahora;
-
-    // Cálculo del tiempo restante
-    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-    const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-
-    // Actualización de los valores en la página con animación
-    document.getElementById("dias").setAttribute("data-number", dias);
-    document.getElementById("horas").setAttribute("data-number", horas);
-    document.getElementById("minutos").setAttribute("data-number", minutos);
-    document.getElementById("segundos").setAttribute("data-number", segundos);
-
-    document.getElementById("dias").innerText = dias;
-    document.getElementById("horas").innerText = horas;
-    document.getElementById("minutos").innerText = minutos;
-    document.getElementById("segundos").innerText = segundos;
-
-    // Mostrar un mensaje cuando el evento haya comenzado
-    if (diferencia < 0) {
-        clearInterval(actualizarCuentaRegresiva);
-        document.getElementById("contador").innerHTML = "<h3>¡El gran día ha llegado!</h3>";
+    .venue-item img {
+        width: 100%; /* Make image take full width of container */
+        border-radius: 10px; /* Round corners for a softer look */
+        margin-bottom: 10px; /* Add space below the image */
     }
-}, 1000);
 
-// Funcionalidad de clic en las imágenes de alojamiento
-const alojamientoImages = document.querySelectorAll('#opciones-alojamiento .venue-item img');
+    .venue-address {
+        font-size: 1em; /* Adjust text size for readability */
+        color: #2c3e50;
+        text-align: center; /* Center the address text */
+    }
+}
 
-alojamientoImages.forEach(image => {
-    image.addEventListener('click', () => {
-        alert('Esta acción te llevará al sitio de reserva del hotel.');
-    });
-});
+/* Modal para maximizar las imágenes */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
 
-// **Lógica para las fotos de la ceremonia**
-const ceremonyImages = document.querySelectorAll('#ceremonia .venue-item img');
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 80%;
+    height: auto;
+    margin-top: 5%;
+}
 
-ceremonyImages.forEach(image => {
-    // Crear y agregar un tooltip para cada imagen de la ceremonia
-    const tooltip = document.createElement('span');
-    tooltip.classList.add('tooltip');
-    tooltip.textContent = 'Ir a ubicación';
-    image.parentNode.appendChild(tooltip);
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    cursor: pointer;
+}
 
-    // Mostrar el tooltip al pasar el mouse
-    image.addEventListener('mouseenter', () => {
-        tooltip.style.display = 'block';
-    });
+.close:hover,
+.close:focus {
+    color: #bbb;
+}
 
-    // Ocultar el tooltip al retirar el mouse
-    image.addEventListener('mouseleave', () => {
-        tooltip.style.display = 'none';
-    });
+#caption {
+    text-align: center;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1.2em;
+}
 
-    // Mostrar mensaje al hacer clic
-    image.addEventListener('click', () => {
-   
-    });
-});
+/* Estilo para la sección de mensaje */
+#mensaje-invitado {
+    padding: 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 10px auto; /* Centrar la sección */
+}
 
-// **Lógica para las fotos de hoteles**
-const hotelImages = document.querySelectorAll('#opciones-alojamiento .venue-item img');
+/* Estilo del mensaje */
+.mensaje {
+    font-style: normal;
+    font-family: 'Playfair Display', serif;
+    font-size: 1em;
+    color: #495057;
+    line-height: 1.4;
+}
 
-hotelImages.forEach(image => {
-    // Crear y agregar un tooltip para cada imagen de hotel
-    const tooltip = document.createElement('span');
-    tooltip.classList.add('tooltip');
-    tooltip.textContent = 'Reservar ahora';
-    image.parentNode.appendChild(tooltip);
+/* Nombre de los novios en cursiva */
+.nombre-novios {
+    font-style: italic;
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.2em;
+    color: #333;
+}
 
-    // Mostrar el tooltip al pasar el mouse
-    image.addEventListener('mouseenter', () => {
-        tooltip.style.display = 'block';
-    });
+/* Nueva sección de mensaje de los novios para la ceremonia */
+#mensaje-ceremonia {
+    padding: 15px;
+    text-align: center;
+    background-color: #f3f4f7;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 20px auto;
+}
 
-    // Ocultar el tooltip al retirar el mouse
-    image.addEventListener('mouseleave', () => {
-        tooltip.style.display = 'none';
-    });
+#mensaje-ceremonia .mensaje {
+    font-style: normal;
+    font-family: 'Playfair Display', serif;
+    font-size: 1em;
+    color: #495057;
+    line-height: 1.5;
+}
 
-    // Redirigir al sitio del hotel al hacer clic en la imagen
-    image.addEventListener('click', () => {
-        const hotelUrl = image.parentNode.href; // Usar el enlace del <a> como destino
-        window.open(hotelUrl, '_blank');
-    });
-});
+/* Nombre de los novios en cursiva */
+#mensaje-ceremonia .nombre-novios {
+    font-style: italic;
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.2em;
+    color: #333;
+}
+
+/* Ajustes para las fotos de la ceremonia */
+.venue-photos {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.venue-item {
+    width: 45%;
+    text-align: center;
+}
+
+.venue-item img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.venue-address {
+    font-family: 'Playfair Display', serif;
+    font-size: 1em;
+    color: #495057;
+    margin-top: 10px;
+}
+
+/* Estilo para la sección de la cuenta regresiva */
+#cuenta-regresiva {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #fdfdfd;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+#cuenta-regresiva h2 {
+    font-family: 'Playfair Display', serif;
+    color: #2c3e50;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    font-style: italic;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+#contador {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.tiempo {
+    background: transparent;
+    color: #2c3e50;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-family: 'Playfair Display', serif;
+}
+
+.tiempo span {
+    display: block;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #e74c3c;
+    position: relative;
+    overflow: hidden;
+}
+
+.tiempo span::before {
+    content: attr(data-number);
+    position: absolute;
+    top: -100%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #c0392b;
+    animation: dropIn 0.5s ease-in-out forwards;
+}
+
+@keyframes dropIn {
+    0% {
+        top: -100%;
+        opacity: 0;
+    }
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+.tiempo p {
+    margin: 0;
+    font-size: 1em;
+    color: #7f8c8d;
+    text-transform: capitalize;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Estilo para la sección de la mesa de regalos */
+#mesa-de-regalos {
+    text-align: center; /* Center the entire section */
+    padding: 20px;
+    background-color: #f9f9f9;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 20px auto; /* Center the section horizontally */
+}
+
+.contenedor-mesa-de-regalos {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center-align content inside the container */
+}
+
+.logotipo-tienda-departamental {
+    width: 280px; /* Adjust the logo size as needed */
+    height: auto;
+    margin-bottom: 10px; /* Add space between the logo and the text */
+}
+
+.mesa-de-regalos-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2em;
+    color: #495057;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.link-mesa-de-regalos-text{
+    font-size: 90%;
+    color:#2c3e50;
+    font-weight: bold;
+}
+/*.boton-mesa-de-regalos {
+    background-color: #495057;
+    color: #fff;
+    padding: 1px 10px;
+    border-radius: 5px;
+    font-size: 1em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+}*/
+
+/*OPCIONES PARA EL BOTÓN DE CONFIRMAR ASISTENCIA*/
+#pruebame {
+    font-size: small;
+    font-weight:bold;
+    text-decoration: underline;
+}
+
+.boton-mesa-de-regalos:hover {
+    background-color: #e5ebf1;
+}
+
+/* Estilo para la sección de opciones de alojamiento */
+#opciones-alojamiento {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #fdfdfd;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+#opciones-alojamiento h2 {
+    font-family: 'Playfair Display', serif;
+    color: #2c3e50;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    font-style: italic;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.venue-photos {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.venue-item {
+    width: 30%;
+    text-align: center;
+    background: #f3f4f7;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.venue-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.venue-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+}
+
+.venue-item .tooltip {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9em;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.venue-item:hover .tooltip {
+    display: block;
+    content: 'Reservar ahora';
+}
+
+.venue-address {
+    font-family: 'Playfair Display', serif;
+    font-size: 1em;
+    color: #495057;
+    margin-top: 10px;
+    text-align: center;
+}
