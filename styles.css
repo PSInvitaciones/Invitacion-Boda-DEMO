@@ -7,7 +7,6 @@ body {
     margin: 0;
 }
 
-
 /* Reset de márgenes y paddings para uniformidad */
 * {
     margin: 0;
@@ -23,10 +22,9 @@ html {
 /* Estilos generales para el cuerpo de la página */
 body {
     font-family: 'Playfair Display', serif;
-    background-color: rgba(240, 240, 240, 0.9); /* Blanco opaco con un poco de transparencia */
+    background-color: #f9f9f9;
     color: #333;
     line-height: 1.6;
-    margin: 0;
 }
 
 /* Header */
@@ -91,8 +89,6 @@ h2 {
 .photo-album img:hover {
     transform: scale(1.1); /* Efecto de flotación */
 }
-
-
 
 .venue-photos img {
     width: 48%;
@@ -198,6 +194,7 @@ footer {
     padding: 10px 20px;
     font-size: 1.2em;
 }
+
 /* Estilo para la sección de mensaje */
 #mensaje-invitado {
     padding: 10px;
@@ -211,7 +208,7 @@ footer {
 
 /* Estilo del mensaje */
 .mensaje {
-    font-style: normal; /* Letra formal y no cursiva */
+    font-style: normal;
     font-family: 'Playfair Display', serif;
     font-size: 1em;
     color: #495057;
@@ -220,11 +217,12 @@ footer {
 
 /* Nombre de los novios en cursiva */
 .nombre-novios {
-    font-style: italic; /* Aplicar cursiva solo a los nombres */
+    font-style: italic;
     font-family: 'Great Vibes', cursive;
     font-size: 1.2em;
     color: #333;
 }
+
 /* Nueva sección de mensaje de los novios para la ceremonia */
 #mensaje-ceremonia {
     padding: 15px;
@@ -233,12 +231,11 @@ footer {
     margin-bottom: 15px;
     border-radius: 5px;
     max-width: 600px;
-    margin: 20px auto; /* Centrar la sección */
+    margin: 20px auto;
 }
 
-/* Mensaje formal para la ceremonia */
 #mensaje-ceremonia .mensaje {
-    font-style: normal; /* Letra formal y no cursiva */
+    font-style: normal;
     font-family: 'Playfair Display', serif;
     font-size: 1em;
     color: #495057;
@@ -247,26 +244,27 @@ footer {
 
 /* Nombre de los novios en cursiva */
 #mensaje-ceremonia .nombre-novios {
-    font-style: italic; /* Aplicar cursiva solo a los nombres */
+    font-style: italic;
     font-family: 'Great Vibes', cursive;
     font-size: 1.2em;
     color: #333;
 }
+
 /* Ajustes para las fotos de la ceremonia */
 .venue-photos {
     display: flex;
-    justify-content: space-around; /* Espacio uniforme entre las imágenes */
+    justify-content: space-around;
     align-items: center;
     margin-top: 10px;
 }
 
 .venue-item {
-    width: 45%; /* Ajuste del ancho de cada imagen */
-    text-align: center; /* Centrar la dirección */
+    width: 45%;
+    text-align: center;
 }
 
 .venue-item img {
-    width: 100%; /* Ajuste de la imagen para ocupar todo el contenedor */
+    width: 100%;
     border-radius: 10px;
 }
 
@@ -274,74 +272,7 @@ footer {
     font-family: 'Playfair Display', serif;
     font-size: 1em;
     color: #495057;
-    margin-top: 10px; /* Separación entre la imagen y el texto */
-}
-/* Estilo para indicar que la imagen es clicable */
-.venue-item img {
-    cursor: pointer; /* Cambia el cursor a dedo índice */
-    position: relative; /* Para posicionar el tooltip */
-}
-
-/* Estilo del mensaje (tooltip) que aparece al pasar el mouse sobre la imagen */
-.venue-item .tooltip {
-    display: none; /* Ocultar el tooltip por defecto */
-    position: absolute;
-    top: 50%; /* Centrar verticalmente */
-    left: 50%; /* Centrar horizontalmente */
-    transform: translate(-50%, -50%); /* Centrar el texto */
-    background: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
-    color: #fff; /* Color del texto */
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-family: 'Playfair Display', serif; /* Fuente formal */
-    font-size: 0.9em;
-    z-index: 10; /* Asegurarse que el tooltip esté encima de la imagen */
-    white-space: nowrap;
-    pointer-events: none; /* Evitar que el tooltip interfiera con el mouse */
-}
-
-/* Mostrar el tooltip al pasar el mouse */
-.venue-item:hover .tooltip {
-    display: block; /* Mostrar el mensaje */
-}
-/* Estilo para el contenedor de la ceremonia */
-.venue-item {
-    background: #f3f4f7; /* Fondo claro */
-    padding: 15px; /* Separación interna */
-    margin-top: 10px; /* Separación superior */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transición suave */
-}
-
-/* Efecto hover en las direcciones */
-.venue-item:hover {
-    transform: translateY(-5px); /* Levantar el bloque al pasar el mouse */
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
-}
-
-/* Estilo del texto de la dirección */
-.venue-address {
-    font-family: 'Playfair Display', serif;
-    font-size: 1em;
-    color: #495057;
-    margin-top: 10px; /* Separación entre la imagen y el texto */
-    text-align: center; /* Centrar el texto */
-}
-
-/* Ajuste de imagen dentro del contenedor */
-.venue-item img {
-    width: 100%; /* Ajustar la imagen al ancho del contenedor */
-    height: auto; /* Mantener proporción de la imagen */
-    border-radius: 8px; /* Redondear las esquinas */
-}
-
-/* Adaptación de la vista para dispositivos móviles */
-@media screen and (max-width: 768px) {
-    .venue-item {
-        margin: 20px auto; /* Centramos el bloque en móviles */
-        max-width: 90%; /* Ajustamos el ancho del bloque */
-    }
+    margin-top: 10px;
 }
 
 /* Estilo para la sección de la cuenta regresiva */
@@ -354,35 +285,31 @@ footer {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
-/* Título de la cuenta regresiva */
 #cuenta-regresiva h2 {
     font-family: 'Playfair Display', serif;
     color: #2c3e50;
     font-size: 1.8em;
     margin-bottom: 10px;
-    font-style: italic; /* Texto en cursiva */
+    font-style: italic;
     letter-spacing: 1px;
     font-weight: 500;
 }
 
-/* Contenedor del contador */
 #contador {
     display: flex;
     justify-content: center;
-    gap: 15px; /* Espacio entre las cajas de tiempo */
+    gap: 15px;
     margin-top: 10px;
 }
 
-/* Estilo para cada unidad de tiempo */
 .tiempo {
-    background: transparent; /* Fondo transparente */
+    background: transparent;
     color: #2c3e50;
     padding: 10px 15px;
     border-radius: 5px;
     font-family: 'Playfair Display', serif;
 }
 
-/* Estilo del número de tiempo */
 .tiempo span {
     display: block;
     font-size: 2.5em;
@@ -392,19 +319,17 @@ footer {
     overflow: hidden;
 }
 
-/* Animación de los números cayendo */
 .tiempo span::before {
-    content: attr(data-number); /* Mostrar el número */
+    content: attr(data-number);
     position: absolute;
-    top: -100%; /* Posición inicial fuera del contenedor */
+    top: -100%;
     left: 0;
     right: 0;
     text-align: center;
-    color: #c0392b; /* Color del número al caer */
+    color: #c0392b;
     animation: dropIn 0.5s ease-in-out forwards;
 }
 
-/* Animación de caída */
 @keyframes dropIn {
     0% {
         top: -100%;
@@ -416,73 +341,72 @@ footer {
     }
 }
 
-/* Etiqueta de cada unidad de tiempo */
 .tiempo p {
     margin: 0;
     font-size: 1em;
     color: #7f8c8d;
     text-transform: capitalize;
     margin-top: 5px;
-    font-style: italic; /* Texto en cursiva */
-}
-
-/* Adaptación para dispositivos móviles */
-@media screen and (max-width: 768px) {
-    #contador {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .tiempo {
-        padding: 5px 10px;
-    }
-
-    .tiempo span {
-        font-size: 1.8em;
-    }
+    font-style: italic;
 }
 
 /* Estilo para la sección de la mesa de regalos */
 #mesa-de-regalos {
+    text-align: center; /* Center the entire section */
     padding: 20px;
     background-color: #f9f9f9;
     margin-bottom: 15px;
     border-radius: 5px;
     max-width: 600px;
-    margin: 10px auto; /* Centrar la sección */
+    margin: 20px auto; /* Center the section horizontally */
 }
 
-/* Estilo para el contenedor de la mesa de regalos */
 .contenedor-mesa-de-regalos {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: center; /* Center-align content inside the container */
 }
 
-/* Estilo para el logotipo de la tienda departamental */
 .logotipo-tienda-departamental {
-    width: 350px;
-    height: 350px;
-    margin-right: 200px;
-    margin-left: -100px;
-  
+    width: 280px; /* Adjust the logo size as needed */
+    height: auto;
+    margin-bottom: 10px; /* Add space between the logo and the text */
 }
 
-/* Estilo para el botón de la mesa de regalos */
-.boton-mesa-de-regalos {
+.mesa-de-regalos-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2em;
+    color: #495057;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.link-mesa-de-regalos-text{
+    font-size: 90%;
+    color:#2c3e50;
+    font-weight: bold;
+}
+/*.boton-mesa-de-regalos {
     background-color: #495057;
     color: #fff;
-    padding: 10px 20px;
+    padding: 1px 10px;
     border-radius: 5px;
     font-size: 1em;
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
     border-radius: 10px;
+}*/
+
+/*OPCIONES PARA EL BOTÓN DE CONFIRMAR ASISTENCIA*/
+#pruebame {
+    font-size: small;
+    font-weight:bold;
+    text-decoration: underline;
 }
 
 .boton-mesa-de-regalos:hover {
-    background-color: #343a40;
+    background-color: #e5ebf1;
 }
 
 /* Estilo para la sección de opciones de alojamiento */
@@ -514,7 +438,7 @@ footer {
 }
 
 .venue-item {
-    width: 30%; 
+    width: 30%;
     text-align: center;
     background: #f3f4f7;
     padding: 15px;
@@ -536,7 +460,6 @@ footer {
     position: relative;
 }
 
-/* Tooltip estilo */
 .venue-item .tooltip {
     display: none;
     position: absolute;
