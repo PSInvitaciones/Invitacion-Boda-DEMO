@@ -1,95 +1,229 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Isabel & Rafael - Portal de Bienvenida</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-</head>
-<body>
-    <!-- Encabezado de la página -->
-    <header>
-        <h1>Isabel & Rafael</h1>
-    </header>
+// Selecci�n del contenedor de la galer�a y del modal
+const photoAlbum = document.querySelector('.photo-album');
+const seccionFotos = document.getElementById('seccion-fotos');
+let isAutoScrolling = true; // Controla si el scroll autom�tico est� activo
+let isModalOpen = false;    // Controla si el modal est� abierto
+let autoScrollInterval;     // Intervalo del scroll autom�tico
 
-    <!-- Sección de Mensaje de Bienvenida -->
-    <section id="mensaje-invitado">
-        <p class="mensaje">
-            Querido invitado,<br><br>
-            Es un honor para nosotros compartir con ustedes la noticia de nuestra boda. Hemos soñado con este día durante mucho tiempo, y nos llena de alegría tener el privilegio de celebrarlo con nuestros seres queridos.<br><br>
-            Su presencia es muy valiosa y apreciada, y deseamos que este día sea tan especial para ustedes como lo es para nosotros.<br><br>
-            Con cariño,<br>
-            <span class="nombre-novios">Isabel & Rafael</span>
-        </p>
-    </section>
+// Modal para maximizar im�genes
+const modal = document.getElementById("modal");
+const modalImg = document.getElementById("imgModal");
+const captionText = document.getElementById("caption");
+const closeModal = document.querySelector(".close");
 
-    <!-- Sección de Fotos -->
-    <section id="seccion-fotos">
-        <h2 id="titulo-fotos">Nuestros Momentos</h2>
-        <div id="grid-fotos" class="photo-album">
-            <img id="foto1" src="https://cdn0.bodas.com.mx/article-vendor/4544/3_2/960/jpg/deborahalberto-preboda-215_5_134544-167166982466661.jpeg" alt="Isabel y Rafael 1" />
-            <img id="foto2" src="https://cdn0.bodas.com.mx/article-real-wedding/629/3_2/960/jpg/1080985.jpeg" alt="Isabel y Rafael 2" />
-            <img id="foto3" src="https://images.squarespace-cdn.com/content/v1/56216fc2e4b059c47b425496/6844187a-27be-435c-bff2-b45cf6812526/Ideas+sesi%C3%B3n+de+novios?format=500w" alt="Isabel y Rafael 3" />
-            <img id="foto4" src="https://s.t13.cl/sites/default/files/styles/manualcrop_850x475/public/t13/field-imagen/2023-02/1677505646-sin-ttulo.jpg.jpeg?itok=dVma1wFB" alt="Isabel y Rafael 4" />
-            <img id="foto5" src="https://cdn0.bodas.com.mx/vendor/6919/3_2/640/jpg/originalmonaco-copia_5_111465.jpeg" alt="Isabel y Rafael 5" />
-            <img id="foto6" src="https://cdn0.bodas.com.mx/article-vendor/0617/3_2/960/jpg/img-4144_5_320617-162372183088272.jpeg" alt="Isabel y Rafael 6" />
-            <img id="foto7" src="https://media.glamour.mx/photos/619082902d97bd4c522a9a2e/master/w_1600%2Cc_limit/208157.jpg" alt="Isabel y Rafael 7" />
-            <img id="foto8" src="https://www.eltelegrafo.com.ec/media/k2/items/cache/a167263028914958741a096efa2fc853_XL.jpg" alt="Isabel y Rafael 8" />
-        </div>
-    </section>
+// Cuadruplicar las im�genes para crear un desplazamiento m�s largo
+photoAlbum.innerHTML += photoAlbum.innerHTML + photoAlbum.innerHTML + photoAlbum.innerHTML;
 
-    <!-- Nueva sección de mensaje de los novios -->
-    <section id="mensaje-ceremonia">
-        <p class="mensaje">
-            "Nos encantaría tener el honor de su compañía en nuestra ceremonia, donde celebraremos nuestro amor y la unión de nuestras vidas. Será un momento especial y significativo para nosotros, y no podríamos estar más agradecidos de compartirlo con ustedes."<br><br>
-            <span class="nombre-novios">Isabel & Rafael</span>
-        </p>
-    </section>
+// Iniciar el scroll autom�tico
+function startAutoScroll() {
+    let scrollSpeed = window.innerWidth < 768 ? 0.5 : 1; // Velocidad m�s lenta en m�viles
+    autoScrollInterval = setInterval(() => {
+        photoAlbum.scrollLeft += scrollSpeed; // Velocidad del scroll autom�tico
+        // Reiniciar el scroll al llegar a la mitad del contenedor cuadruplicado
+        if (photoAlbum.scrollLeft >= photoAlbum.scrollWidth / 4) {
+            photoAlbum.scrollLeft = 0;
+        }
+    }, 30);
+}
 
-    <!-- Sección de la Ceremonia -->
-    <section id="ceremonia">
-        <h2 id="titulo-ceremonia">Ceremonia</h2>
-        <div class="venue-photos">
-            <!-- Lugar de la ceremonia -->
-            <div class="venue-item">
-                <img src="https://arquidiocesismexico.org.mx/wp-content/uploads/2024/01/IMG_7963-2-scaled.jpg" alt="Lugar de la ceremonia" />
-                <p class="venue-address">Dirección de la ceremonia: Calle Ficticia 123, Ciudad de Ejemplo</p>
-            </div>
-            <!-- Lugar de la boda -->
-            <div class="venue-item">
-                <img src="https://cache.marriott.com/content/dam/marriott-digital/jw/cala/hws/m/mtyjw/en_us/photo/unlimited/assets/mtyjw-exterior-2807.jpg" alt="Lugar de la boda" />
-                <p class="venue-address">Dirección del lugar: Av. Ficticia 456, Monterrey, Nuevo León</p>
-            </div>
-        </div>
-    </section>
+// Pausar el scroll autom�tico
+function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+}
 
-    <!-- Sección de Confirmar Asistencia -->
-    <section id="confirmar-asistencia">
-        <h2 id="titulo-confirmar">Confirmar Asistencia</h2>
-        <a href="https://wa.me/528126887438?text=Confirmo%20mi%20asistencia" id="whatsapp-btn" target="_blank">
-            Confirmar asistencia
-        </a>
-    </section>
+// Iniciar scroll autom�tico al cargar la p�gina
+window.addEventListener('load', startAutoScroll);
 
-    <!-- Modal para maximizar las imágenes -->
-    <div id="modal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="imgModal">
-        <div id="caption"></div>
-    </div>
+// Detener el desplazamiento autom�tico cuando el mouse est� sobre la secci�n de fotos
+seccionFotos.addEventListener('mouseenter', () => {
+    if (!isModalOpen) {
+        stopAutoScroll();
+        isAutoScrolling = false;
+    }
+});
 
-    <!-- Pie de página -->
-    <footer>
-        <p>&copy; 2024 Isabel & Rafael. Todos los derechos reservados.</p>
-    </footer>
+// Reanudar el desplazamiento autom�tico cuando el mouse salga de la secci�n de fotos
+seccionFotos.addEventListener('mouseleave', () => {
+    if (!isAutoScrolling && !isModalOpen) {
+        startAutoScroll();
+        isAutoScrolling = true;
+    }
+});
 
-    <!-- Vinculación del archivo JavaScript -->
-    <script src="Script1.js"></script>
+// Funcionalidad del modal para maximizar la imagen seleccionada
+const images = document.querySelectorAll(".photo-album img");
 
-    <!-- Librería de confetti -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+images.forEach(image => {
+    image.addEventListener("click", function() {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+        stopAutoScroll(); // Pausar el scroll autom�tico cuando el modal est� abierto
+        isModalOpen = true; // Marcar que el modal est� abierto
+    });
+});
 
-</body>
-</html>
+// Cerrar el modal y reanudar el scroll autom�tico solo si el mouse no est� sobre la secci�n de fotos
+closeModal.addEventListener("click", function() {
+    modal.style.display = "none";
+    isModalOpen = false; // Marcar que el modal se ha cerrado
+    if (!seccionFotos.matches(':hover')) {
+        startAutoScroll(); // Reanudar el scroll si el mouse no est� sobre la secci�n
+        isAutoScrolling = true;
+    }
+});
+
+// Efecto de confetti y mensaje en la confirmaci�n de asistencia
+const whatsappBtn = document.getElementById('whatsapp-btn');
+whatsappBtn.addEventListener('click', function(event) {
+    event.preventDefault(); // Evita que abra el enlace de inmediato
+    whatsappBtn.textContent = '\u00A1Hay Bod\u00F3n!'; // Cambia el texto del boton
+
+    // Configurar el confetti para que aparezca desde los lados hacia el centro
+    function launchSideConfetti() {
+        confetti({
+            particleCount: 100,
+            angle: 60, // Confetti desde la izquierda
+            spread: 55,
+            origin: { x: 0, y: 0.5 }, // Lado izquierdo
+            colors: ['#ff718d', '#29cdff', '78ff44'] // Colores personalizados
+        });
+
+        confetti({
+            particleCount: 100,
+            angle: 120, // Confetti desde la derecha
+            spread: 55,
+            origin: { x: 1, y: 0.5 }, // Lado derecho
+            colors: ['#ff718d', '#29cdff', '78ff44'] // Colores personalizados
+        });
+    }
+
+    // Lanzar confetti desde los lados durante 1.5 segundos
+    launchSideConfetti();
+
+    setTimeout(function() {
+        location.href = whatsappBtn.href; // Abre el enlace despu�s del efecto
+    }, 1500);
+});
+
+// **Agregar funcionalidad de pop-up y tooltip a las fotos de la ceremonia**
+const venueImages = document.querySelectorAll('.venue-item img');
+
+venueImages.forEach(image => {
+    // Crear y agregar un tooltip para cada imagen
+    const tooltip = document.createElement('span');
+    tooltip.classList.add('tooltip');
+    tooltip.textContent = 'Ir a ubicacion';
+    image.parentNode.appendChild(tooltip);
+
+    // Mostrar el mensaje al pasar el mouse
+    image.addEventListener('mouseenter', () => {
+        tooltip.style.display = 'block';
+    });
+
+    // Ocultar el mensaje cuando se aleje el mouse
+    image.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+    });
+
+    // Mostrar mensaje de confirmaci�n al hacer clic
+    image.addEventListener('click', () => {
+        alert('Esta acci\u00F3n te llevar\u00EDa a la ubicac\u00F3n del lugar en Google Maps.');
+    });
+});
+
+// **Cuenta regresiva**
+const fechaEvento = new Date("2024-12-31T00:00:00").getTime(); // Cambia la fecha al d�a del evento
+
+// Actualizaci�n del contador cada segundo
+const actualizarCuentaRegresiva = setInterval(() => {
+    const ahora = new Date().getTime();
+    const diferencia = fechaEvento - ahora;
+
+    // C�lculo del tiempo restante
+    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+    // Actualizaci�n de los valores en la p�gina con animaci�n
+    document.getElementById("dias").setAttribute("data-number", dias);
+    document.getElementById("horas").setAttribute("data-number", horas);
+    document.getElementById("minutos").setAttribute("data-number", minutos);
+    document.getElementById("segundos").setAttribute("data-number", segundos);
+
+    document.getElementById("dias").innerText = dias;
+    document.getElementById("horas").innerText = horas;
+    document.getElementById("minutos").innerText = minutos;
+    document.getElementById("segundos").innerText = segundos;
+
+    // Mostrar un mensaje cuando el evento haya comenzado
+    if (diferencia < 0) {
+        clearInterval(actualizarCuentaRegresiva);
+        document.getElementById("contador").innerHTML = "<h3>�El gran d\u00EDa ha llegado!</h3>";
+    }
+}, 1000);
+
+// Funcionalidad de clic en las im�genes de alojamiento
+const alojamientoImages = document.querySelectorAll('#opciones-alojamiento .venue-item img');
+
+alojamientoImages.forEach(image => {
+    image.addEventListener('click', () => {
+        alert('Esta acci\u00F3n te llevar\u00E1 al sitio de reserva del hotel.');
+    });
+});
+
+// **L�gica para las fotos de la ceremonia**
+const ceremonyImages = document.querySelectorAll('#ceremonia .venue-item img');
+
+ceremonyImages.forEach(image => {
+    // Crear y agregar un tooltip para cada imagen de la ceremonia
+    const tooltip = document.createElement('span');
+    tooltip.classList.add('tooltip');
+    tooltip.textContent = 'Ir a ubicaci\u00F3n';
+    image.parentNode.appendChild(tooltip);
+
+    // Mostrar el tooltip al pasar el mouse
+    image.addEventListener('mouseenter', () => {
+        tooltip.style.display = 'block';
+    });
+
+    // Ocultar el tooltip al retirar el mouse
+    image.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+    });
+
+    // Mostrar mensaje al hacer clic
+    image.addEventListener('click', () => {
+   
+    });
+});
+
+// **L�gica para las fotos de hoteles**
+const hotelImages = document.querySelectorAll('#opciones-alojamiento .venue-item img');
+
+hotelImages.forEach(image => {
+    // Crear y agregar un tooltip para cada imagen de hotel
+    const tooltip = document.createElement('span');
+    tooltip.classList.add('tooltip');
+    tooltip.textContent = 'Reservar ahora';
+    image.parentNode.appendChild(tooltip);
+
+    // Mostrar el tooltip al pasar el mouse
+    image.addEventListener('mouseenter', () => {
+        tooltip.style.display = 'block';
+    });
+
+    // Ocultar el tooltip al retirar el mouse
+    image.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+    });
+
+    // Redirigir al sitio del hotel al hacer clic en la imagen
+    image.addEventListener('click', () => {
+        const hotelUrl = image.parentNode.href; // Usar el enlace del <a> como destino
+        window.open(hotelUrl, '_blank');
+    });
+});
+
+
