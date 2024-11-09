@@ -1,24 +1,24 @@
-// Selecci�n del contenedor de la galer�a y del modal
+// Selección del contenedor de la galería y del modal
 const photoAlbum = document.querySelector('.photo-album');
 const seccionFotos = document.getElementById('seccion-fotos');
-let isAutoScrolling = true; // Controla si el scroll autom�tico est� activo
-let isModalOpen = false;    // Controla si el modal est� abierto
-let autoScrollInterval;     // Intervalo del scroll autom�tico
+let isAutoScrolling = true; // Controla si el scroll automático está activo
+let isModalOpen = false;    // Controla si el modal está abierto
+let autoScrollInterval;     // Intervalo del scroll automático
 
-// Modal para maximizar im�genes
+// Modal para maximizar imágenes
 const modal = document.getElementById("modal");
 const modalImg = document.getElementById("imgModal");
 const captionText = document.getElementById("caption");
 const closeModal = document.querySelector(".close");
 
-// Cuadruplicar las im�genes para crear un desplazamiento m�s largo
+// Cuadruplicar las imágenes para crear un desplazamiento más largo
 photoAlbum.innerHTML += photoAlbum.innerHTML + photoAlbum.innerHTML + photoAlbum.innerHTML;
 
-// Iniciar el scroll autom�tico
+// Iniciar el scroll automático
 function startAutoScroll() {
-    let scrollSpeed = window.innerWidth < 768 ? 0.5 : 1; // Velocidad m�s lenta en m�viles
+    let scrollSpeed = window.innerWidth < 768 ? 0.5 : 1; // Velocidad más lenta en móviles
     autoScrollInterval = setInterval(() => {
-        photoAlbum.scrollLeft += scrollSpeed; // Velocidad del scroll autom�tico
+        photoAlbum.scrollLeft += scrollSpeed; // Velocidad del scroll automático
         // Reiniciar el scroll al llegar a la mitad del contenedor cuadruplicado
         if (photoAlbum.scrollLeft >= photoAlbum.scrollWidth / 4) {
             photoAlbum.scrollLeft = 0;
@@ -26,15 +26,15 @@ function startAutoScroll() {
     }, 30);
 }
 
-// Pausar el scroll autom�tico
+// Pausar el scroll automático
 function stopAutoScroll() {
     clearInterval(autoScrollInterval);
 }
 
-// Iniciar scroll autom�tico al cargar la p�gina
+// Iniciar scroll automático al cargar la página
 window.addEventListener('load', startAutoScroll);
 
-// Detener el desplazamiento autom�tico cuando el mouse est� sobre la secci�n de fotos
+// Detener el desplazamiento automático cuando el mouse está sobre la sección de fotos
 seccionFotos.addEventListener('mouseenter', () => {
     if (!isModalOpen) {
         stopAutoScroll();
@@ -42,7 +42,7 @@ seccionFotos.addEventListener('mouseenter', () => {
     }
 });
 
-// Reanudar el desplazamiento autom�tico cuando el mouse salga de la secci�n de fotos
+// Reanudar el desplazamiento automático cuando el mouse salga de la sección de fotos
 seccionFotos.addEventListener('mouseleave', () => {
     if (!isAutoScrolling && !isModalOpen) {
         startAutoScroll();
@@ -58,26 +58,26 @@ images.forEach(image => {
         modal.style.display = "block";
         modalImg.src = this.src;
         captionText.innerHTML = this.alt;
-        stopAutoScroll(); // Pausar el scroll autom�tico cuando el modal est� abierto
-        isModalOpen = true; // Marcar que el modal est� abierto
+        stopAutoScroll(); // Pausar el scroll automático cuando el modal esté abierto
+        isModalOpen = true; // Marcar que el modal está abierto
     });
 });
 
-// Cerrar el modal y reanudar el scroll autom�tico solo si el mouse no est� sobre la secci�n de fotos
+// Cerrar el modal y reanudar el scroll automático solo si el mouse no está sobre la sección de fotos
 closeModal.addEventListener("click", function() {
     modal.style.display = "none";
     isModalOpen = false; // Marcar que el modal se ha cerrado
     if (!seccionFotos.matches(':hover')) {
-        startAutoScroll(); // Reanudar el scroll si el mouse no est� sobre la secci�n
+        startAutoScroll(); // Reanudar el scroll si el mouse no está sobre la sección
         isAutoScrolling = true;
     }
 });
 
-// Efecto de confetti y mensaje en la confirmaci�n de asistencia
+// Efecto de confetti y mensaje en la confirmación de asistencia
 const whatsappBtn = document.getElementById('whatsapp-btn');
 whatsappBtn.addEventListener('click', function(event) {
     event.preventDefault(); // Evita que abra el enlace de inmediato
-    whatsappBtn.textContent = '\u00A1Hay Bod\u00F3n!'; // Cambia el texto del boton
+    whatsappBtn.textContent = '\u00A1Hay Bod\u00F3n!'; // Cambia el texto del botón
 
     // Configurar el confetti para que aparezca desde los lados hacia el centro
     function launchSideConfetti() {
@@ -86,7 +86,7 @@ whatsappBtn.addEventListener('click', function(event) {
             angle: 60, // Confetti desde la izquierda
             spread: 55,
             origin: { x: 0, y: 0.5 }, // Lado izquierdo
-            colors: ['#ff718d', '#29cdff', '78ff44'] // Colores personalizados
+            colors: ['#ff718d', '#29cdff', '#78ff44'] // Colores personalizados
         });
 
         confetti({
@@ -94,7 +94,7 @@ whatsappBtn.addEventListener('click', function(event) {
             angle: 120, // Confetti desde la derecha
             spread: 55,
             origin: { x: 1, y: 0.5 }, // Lado derecho
-            colors: ['#ff718d', '#29cdff', '78ff44'] // Colores personalizados
+            colors: ['#ff718d', '#29cdff', '#78ff44'] // Colores personalizados
         });
     }
 
@@ -102,7 +102,7 @@ whatsappBtn.addEventListener('click', function(event) {
     launchSideConfetti();
 
     setTimeout(function() {
-        location.href = whatsappBtn.href; // Abre el enlace despu�s del efecto
+        location.href = whatsappBtn.href; // Abre el enlace después del efecto
     }, 1500);
 });
 
@@ -113,7 +113,7 @@ venueImages.forEach(image => {
     // Crear y agregar un tooltip para cada imagen
     const tooltip = document.createElement('span');
     tooltip.classList.add('tooltip');
-    tooltip.textContent = 'Ir a ubicacion';
+    tooltip.textContent = 'Ir a ubicaci\u00F3n';
     image.parentNode.appendChild(tooltip);
 
     // Mostrar el mensaje al pasar el mouse
@@ -126,27 +126,27 @@ venueImages.forEach(image => {
         tooltip.style.display = 'none';
     });
 
-    // Mostrar mensaje de confirmaci�n al hacer clic
+    // Mostrar mensaje de confirmación al hacer clic
     image.addEventListener('click', () => {
-        alert('Esta acci\u00F3n te llevar\u00EDa a la ubicac\u00F3n del lugar en Google Maps.');
+        alert('Esta acci\u00F3n te llevar\u00EDa a la ubicaci\u00F3n del lugar en Google Maps.');
     });
 });
 
 // **Cuenta regresiva**
-const fechaEvento = new Date("2024-12-31T00:00:00").getTime(); // Cambia la fecha al d�a del evento
+const fechaEvento = new Date("2024-12-31T00:00:00").getTime(); // Cambia la fecha al día del evento
 
-// Actualizaci�n del contador cada segundo
+// Actualización del contador cada segundo
 const actualizarCuentaRegresiva = setInterval(() => {
     const ahora = new Date().getTime();
     const diferencia = fechaEvento - ahora;
 
-    // C�lculo del tiempo restante
+    // Cálculo del tiempo restante
     const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
     const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
     const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
 
-    // Actualizaci�n de los valores en la p�gina con animaci�n
+    // Actualización de los valores en la página con animación
     document.getElementById("dias").setAttribute("data-number", dias);
     document.getElementById("horas").setAttribute("data-number", horas);
     document.getElementById("minutos").setAttribute("data-number", minutos);
@@ -160,11 +160,11 @@ const actualizarCuentaRegresiva = setInterval(() => {
     // Mostrar un mensaje cuando el evento haya comenzado
     if (diferencia < 0) {
         clearInterval(actualizarCuentaRegresiva);
-        document.getElementById("contador").innerHTML = "<h3>�El gran d\u00EDa ha llegado!</h3>";
+        document.getElementById("contador").innerHTML = "<h3>\u00A1El gran d\u00EDa ha llegado!</h3>";
     }
 }, 1000);
 
-// Funcionalidad de clic en las im�genes de alojamiento
+// Funcionalidad de clic en las imágenes de alojamiento
 const alojamientoImages = document.querySelectorAll('#opciones-alojamiento .venue-item img');
 
 alojamientoImages.forEach(image => {
@@ -173,7 +173,7 @@ alojamientoImages.forEach(image => {
     });
 });
 
-// **L�gica para las fotos de la ceremonia**
+// **Lógica para las fotos de la ceremonia**
 const ceremonyImages = document.querySelectorAll('#ceremonia .venue-item img');
 
 ceremonyImages.forEach(image => {
@@ -192,14 +192,9 @@ ceremonyImages.forEach(image => {
     image.addEventListener('mouseleave', () => {
         tooltip.style.display = 'none';
     });
-
-    // Mostrar mensaje al hacer clic
-    image.addEventListener('click', () => {
-   
-    });
 });
 
-// **L�gica para las fotos de hoteles**
+// **Lógica para las fotos de hoteles**
 const hotelImages = document.querySelectorAll('#opciones-alojamiento .venue-item img');
 
 hotelImages.forEach(image => {
@@ -225,5 +220,3 @@ hotelImages.forEach(image => {
         window.open(hotelUrl, '_blank');
     });
 });
-
-
